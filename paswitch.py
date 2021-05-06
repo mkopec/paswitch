@@ -8,8 +8,7 @@ sinks={}
 parser = argparse.ArgumentParser(description='PulseAudio sink switcher')
 parser.add_argument('--menu', nargs=1, default=['bemenu'], required=False)
 args = parser.parse_args()
-menu = args.menu[0]
-print(menu)
+menu = args.menu[0] + ' -p "pulseaudio"'
 
 with pulsectl.Pulse('sink-switcher') as pulse:
 	index = 0
