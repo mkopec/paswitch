@@ -35,4 +35,6 @@ with pulsectl.Pulse('sink-switcher') as pulse:
 	
 	stdout, stderr = p.communicate(input=bytes(command, 'utf-8'))
 	selection = sinks.get(stdout.decode('utf-8').replace('\n', ''))
-	pulse.default_set(selection)
+
+	if selection is not None:
+		pulse.default_set(selection)
