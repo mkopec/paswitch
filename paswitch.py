@@ -3,8 +3,6 @@ import pulsectl
 import subprocess
 import argparse
 
-sinks={}
-
 parser = argparse.ArgumentParser(description='PulseAudio sink switcher')
 parser.add_argument('--menu', nargs=1, default=['bemenu'], required=False)
 args = parser.parse_args()
@@ -13,6 +11,8 @@ menu = args.menu[0] + ' -p "pulseaudio"'
 with pulsectl.Pulse('sink-switcher') as pulse:
 	index = 0
 	activeindex = 0
+	sinks={}
+
 	for sink in pulse.sink_list():
 		if 'alsa.card_name' in sink.proplist:
 			key = sink.proplist.get('alsa.card_name') + " " + sink.proplist.get('alsa.name')
