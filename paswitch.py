@@ -6,8 +6,9 @@ import argparse
 # CLI argument parsing
 parser = argparse.ArgumentParser(description='PulseAudio sink switcher')
 parser.add_argument('--menu','-m', nargs=1, default=['bemenu'], required=False)
+parser.add_argument('--prompt','-p', nargs=1, default=['pulseaudio'], required=False)
 args = parser.parse_args()
-menu = args.menu[0] + ' -p "pulseaudio"'
+menu = args.menu[0] + ' -p ' + args.prompt[0]
 
 with pulsectl.Pulse('sink-switcher') as pulse:
 	index = 0 # Used for determining the current default sink
