@@ -15,9 +15,11 @@ with pulsectl.Pulse('sink-switcher') as pulse:
 	activeindex = 0
 	for sink in pulse.sink_list():
 		if 'alsa.card_name' in sink.proplist:
-			sinks[sink.proplist.get('alsa.card_name') + " " + sink.proplist.get('alsa.name')] = sink
+			key = sink.proplist.get('alsa.card_name') + " " + sink.proplist.get('alsa.name')
 		else:
-			sinks[sink.proplist.get('device.description')] = sink
+			key = sink.proplist.get('device.description')
+		sinks[key] = sink
+		
 		if sink.proplist.get('node.name') == pulse.server_info().default_sink_name:
 			activeindex = index
 		index = index + 1
