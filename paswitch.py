@@ -33,8 +33,8 @@ with pulsectl.Pulse('sink-switcher') as pulse:
 	p = subprocess.Popen(menu, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
 	
 	stdout, stderr = p.communicate(input=bytes(options, 'utf-8')) # Pass options to bemenu
-	selection = sinks.get(stdout.decode('utf-8').replace('\n', '')) # Retrieve selection from bemenu
-
 	p.wait()
-	if p.returncode != -1: # Check if bemenu returned an option
+	
+	if p.returncode != -1:
+		selection = sinks.get(stdout.decode('utf-8').replace('\n', '')) # Retrieve sink that matches selection from bemenu
 		pulse.default_set(selection)
