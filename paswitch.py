@@ -16,10 +16,7 @@ with pulsectl.Pulse('sink-switcher') as pulse:
 	sinks = {}
 
 	for sink in pulse.sink_list():
-		if 'alsa.card_name' in sink.proplist:
-			key = sink.proplist.get('alsa.card_name') + " " + sink.proplist.get('alsa.name')
-		else:
-			key = sink.proplist.get('device.description')
+		key = sink.proplist.get('device.description')
 		sinks[key] = sink
 		
 		if sink.proplist.get('node.name') == pulse.server_info().default_sink_name:
